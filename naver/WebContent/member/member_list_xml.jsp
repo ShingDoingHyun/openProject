@@ -1,5 +1,5 @@
-<%@page import="com.bitcamp.op.member.model.MemberInfo"%>
-<%@page import="com.bitcamp.op.member.model.MemberInfoList"%>
+<%@page import="member.model.MemberInfo"%>
+<%@page import="member.model.MemberInfoList"%>
 <%@page import="member.service.GetMemberListService"%>
 <%@ page language="java" contentType="text/xml; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>

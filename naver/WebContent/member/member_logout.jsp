@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:useBean id="loginMemberInfo" class="com.bitcamp.op.member.model.MemberInfo" scope="session"/>
+<jsp:useBean id="loginMemberInfo" class="member.model.MemberInfo" scope="session"/>
 <%
 
 session.invalidate();

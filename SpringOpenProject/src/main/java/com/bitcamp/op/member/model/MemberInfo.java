@@ -105,6 +105,11 @@ public class MemberInfo {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
+	public boolean isMatchPassword(String pw) {
+
+		return password.equals(pw) ? true : false;
+	}
 
 
 	@Override

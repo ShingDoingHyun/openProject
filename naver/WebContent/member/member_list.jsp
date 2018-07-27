@@ -1,5 +1,5 @@
-<%@page import="com.bitcamp.op.member.model.MemberInfoList"%>
-<%@page import="com.bitcamp.op.member.model.MemberInfo"%>
+<%@page import="member.model.MemberInfoList"%>
+<%@page import="member.model.MemberInfo"%>
 <%@page import="member.service.GetMemberListService"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.DriverManager"%>

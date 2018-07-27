@@ -1,9 +1,12 @@
 package com.bitcamp.op.member.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import com.bitcamp.op.jdbc.ConnectionProvider;
 import com.bitcamp.op.member.dao.MemberDao;
 import com.bitcamp.op.member.model.MemberInfo;
+
 
 public class JoinMemberService {
 	
@@ -13,7 +16,8 @@ public class JoinMemberService {
 		this.memberDao = memberDao;
 	}
 	
-	public void joinMember(Connection conn, MemberInfo memberInfo) {
+	public void joinMember(MemberInfo memberInfo) throws SQLException {
+		Connection conn =  ConnectionProvider.getConnection();
 		memberDao.insertMember(conn, memberInfo);
 	}
 	
