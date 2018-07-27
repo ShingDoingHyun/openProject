@@ -8,7 +8,7 @@
 <%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
 <%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@page import="member.service.joinMemberService"%>
-<%@page import="member.model.MemberInfo"%>
+<%@page import="com.bitcamp.op.member.model.MemberInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%

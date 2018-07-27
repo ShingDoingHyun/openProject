@@ -4,7 +4,7 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/naver/css/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<jsp:useBean id="loginMemberInfo" class="member.model.MemberInfo" scope="session" />
+<jsp:useBean id="loginMemberInfo" class="com.bitcamp.op.member.model.MemberInfo" scope="session" />
 <a href="/naver"><h1>SDH</h1></a>
 <div style="background: #00BC3D">
 	<ul class="box">
