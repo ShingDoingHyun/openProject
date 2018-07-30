@@ -5,6 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bitcamp.op.jdbc.JdbcUtil;
@@ -33,15 +36,48 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int selectCount(Connection conn) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectCount(Connection conn) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select count(*) from member");
+			rs.next();
+			return rs.getInt(1);
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
+		}
 	}
 
 	@Override
-	public List<MemberInfo> selectList(Connection conn, int firstRow, int endRow) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MemberInfo> selectList(Connection conn, int firstRow, int endRow) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			pstmt = conn.prepareStatement("select userid, password, NAME, birthday, gender, email, phone, photo  from ( "
+					+ " select rownum rnum, userid, password, NAME, birthday, gender, email, phone, photo from ( "
+					+ " select * from member m order by m.userid desc " + " ) where rownum <= ? "
+					+ ") where rnum >= ?");
+
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, firstRow);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				List<MemberInfo> memberList = new ArrayList<MemberInfo>();
+				do {
+					memberList.add(makeMemberFromResultSet(rs));// rs�� �Ѱܼ� ó��
+				} while (rs.next());
+				return memberList;
+			} else {
+				return Collections.emptyList();
+			}
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
 	}
 
 	@Override

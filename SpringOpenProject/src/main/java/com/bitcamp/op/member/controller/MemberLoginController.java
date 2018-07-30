@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bitcamp.op.member.model.MemberInfo;
 import com.bitcamp.op.member.service.MemberJoinService;
+import com.bitcamp.op.member.service.MemberListService;
 import com.bitcamp.op.member.service.MemberLoginService;
 
 @Controller
@@ -25,6 +26,9 @@ public class MemberLoginController {
 	
 	@Autowired
 	MemberJoinService memberJoinService;
+	
+	@Autowired
+	MemberListService memberListService;
 
 	@RequestMapping("/member/memberLoginForm")
 	public String memberLoginForm(@RequestParam(value="userId", defaultValue="") String userId, Model model) {
@@ -41,7 +45,6 @@ public class MemberLoginController {
 		String pw = request.getParameter("memberPassword");
  
 		boolean result = memberLoginService.loginMember(request, id, pw);
-		System.out.println(result);
 		if (result) {
 			return "redirect:/";
 		} else {
@@ -78,5 +81,21 @@ public class MemberLoginController {
 
 		return "redirect:/";
 	}
+	
+	
+	@RequestMapping("/member/memberMypage")
+	public String memberMypage() {
+		
+		return "member/member_mypage";
+	}
+	
+	@RequestMapping("/member/memberList")
+	public String memberMypage(Model model) throws SQLException {
+		
+		model.addAttribute("memberInfos", memberListService.getMessageList(1));
+		return "member/member_list";
+	}
+	
+	
 
 }

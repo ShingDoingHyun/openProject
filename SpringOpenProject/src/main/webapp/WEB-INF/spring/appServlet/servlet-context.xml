@@ -54,6 +54,11 @@
 		class="com.bitcamp.op.member.service.MemberJoinService">
 		<beans:property name="memberDao" ref="memberDao" />
 	</beans:bean>
+	<!-- 회원가입빈 -->
+	<beans:bean id="memberListService"
+		class="com.bitcamp.op.member.service.MemberListService">
+		<beans:property name="memberDao" ref="memberDao" />
+	</beans:bean>
 
 	<!-- <interceptors> 로긴체크 <interceptor> <mapping path="/member/**" /> <exclude-mapping 
 		path="/member/memberLoginForm" /> <beans:bean class="com.bitcamp.op.member.interceptor.AutoCheckInterceptor" 

@@ -11,9 +11,9 @@ public interface MemberDao {
 
 	public int insertMember(Connection conn, MemberInfo memberInfo) throws SQLException;
 
-	public int selectCount(Connection conn);
+	public int selectCount(Connection conn) throws SQLException;
 
-	public List<MemberInfo> selectList(Connection conn, int firstRow, int endRow);
+	public List<MemberInfo> selectList(Connection conn, int firstRow, int endRow) throws SQLException;
 
 	public List<MemberInfo> selectList(Connection conn);
 
