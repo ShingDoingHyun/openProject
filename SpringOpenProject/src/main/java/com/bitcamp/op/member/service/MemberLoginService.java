@@ -27,12 +27,11 @@ public class MemberLoginService {
 			conn = ConnectionProvider.getConnection();
 
 			MemberInfo memberdto = memberDao.selectById(conn, userId);
-			System.out.println("로그인" +memberdto);
+			
 			if (memberdto != null && memberdto.isMatchPassword(userPw)) {
 				session.setAttribute("loginInfo", memberdto);
-				System.out.println("로그인 성공" +memberdto);
 				result = true;
-			}
+			} 
 		} finally {
 			JdbcUtil.close(conn);
 		}

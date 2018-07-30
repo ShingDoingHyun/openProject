@@ -9,7 +9,7 @@ import com.bitcamp.op.member.model.MemberInfo;
 
 public interface MemberDao {
 
-	public int insertMember(Connection conn, MemberInfo memberInfo);
+	public int insertMember(Connection conn, MemberInfo memberInfo) throws SQLException;
 
 	public int selectCount(Connection conn);
 

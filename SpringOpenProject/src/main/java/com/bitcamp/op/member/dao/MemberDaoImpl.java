@@ -1,6 +1,7 @@
 package com.bitcamp.op.member.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,9 +13,23 @@ import com.bitcamp.op.member.model.MemberInfo;
 public class MemberDaoImpl implements MemberDao {
 
 	@Override
-	public int insertMember(Connection conn, MemberInfo memberInfo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertMember(Connection conn, MemberInfo memberInfo) throws SQLException {
+		PreparedStatement pstmt = null;
+		String sql = "insert into member values (?,?,?,?,?,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberInfo.getUserid());
+			pstmt.setString(2, memberInfo.getPassword());
+			pstmt.setString(3, memberInfo.getName());
+			pstmt.setDate(4, Date.valueOf(memberInfo.getBirthday()));
+			pstmt.setBoolean(5, memberInfo.isGender());
+			pstmt.setString(6, memberInfo.getEmail());
+			pstmt.setString(7, memberInfo.getPhone());
+			pstmt.setString(8, memberInfo.getPhoto());
+			return pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
 	}
 
 	@Override
