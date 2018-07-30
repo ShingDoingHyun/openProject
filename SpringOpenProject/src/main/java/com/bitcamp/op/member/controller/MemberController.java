@@ -19,7 +19,7 @@ import com.bitcamp.op.member.service.MemberListService;
 import com.bitcamp.op.member.service.MemberLoginService;
 
 @Controller
-public class MemberLoginController {
+public class MemberController {
 
 	@Autowired
 	MemberLoginService memberLoginService;
@@ -90,9 +90,9 @@ public class MemberLoginController {
 	}
 	
 	@RequestMapping("/member/memberList")
-	public String memberMypage(Model model) throws SQLException {
+	public String memberMypage(Model model, @RequestParam(value="page", defaultValue="1") int pageNum) throws SQLException {
 		
-		model.addAttribute("memberInfos", memberListService.getMessageList(1));
+		model.addAttribute("memberInfos", memberListService.getMessageList(pageNum));
 		return "member/member_list";
 	}
 	

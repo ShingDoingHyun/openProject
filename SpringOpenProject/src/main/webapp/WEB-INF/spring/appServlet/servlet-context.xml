@@ -19,8 +19,8 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/uploadFile/**" location="/uploadFile/" />
-	
-	
+
+
 	<resources mapping="../css/**" location="/resources/css/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
@@ -54,10 +54,19 @@
 		class="com.bitcamp.op.member.service.MemberJoinService">
 		<beans:property name="memberDao" ref="memberDao" />
 	</beans:bean>
-	<!-- 회원가입빈 -->
+	<!-- 회원리스트 -->
 	<beans:bean id="memberListService"
 		class="com.bitcamp.op.member.service.MemberListService">
 		<beans:property name="memberDao" ref="memberDao" />
+	</beans:bean>
+	
+	<!-- empDao 빈 등록 -->
+	<beans:bean id="empDao"
+		class="com.bitcamp.op.emp.dao.EmpDaoEmpl" />
+	<!-- 사원리스트 -->
+	<beans:bean id="empListService"
+		class="com.bitcamp.op.emp.service.EmpListService">
+		<beans:property name="empDao" ref="empDao" />
 	</beans:bean>
 
 	<!-- <interceptors> 로긴체크 <interceptor> <mapping path="/member/**" /> <exclude-mapping 
