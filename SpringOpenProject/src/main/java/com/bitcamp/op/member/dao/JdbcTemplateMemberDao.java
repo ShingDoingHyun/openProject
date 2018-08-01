@@ -39,6 +39,15 @@ public class JdbcTemplateMemberDao {
 
 		return resultObj;
 	}
+	
+	public int selectIdCheck(String userid) {
+		Integer resultCnt = 0;
+		String sql = "select count(*) from member where userid=?";
+	
+		resultCnt = jdbcTemplate.queryForObject(sql, Integer.class, userid);
+		return resultCnt;
+	}
+
 
 	public int insertMember(MemberInfo memberInfo) {
 
@@ -109,6 +118,7 @@ public class JdbcTemplateMemberDao {
 		return jdbcTemplate.update(sql, userId);
 		
 	}
-	
+
+
 
 }

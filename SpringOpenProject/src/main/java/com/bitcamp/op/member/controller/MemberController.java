@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bitcamp.op.member.model.MemberInfo;
@@ -77,6 +78,18 @@ public class MemberController {
 	
 		return "member/member_join_form";
 	}
+	
+	@RequestMapping("/member/memberIdCheck")
+	@ResponseBody
+	public String memberIdCheck(@RequestParam(value="userid") String userid){
+		
+		System.out.println("오긴 왔는데"+userid);
+		String result = Integer.toString(memberJoinService.selectMemberById(userid));
+		System.out.println(result+"결과");
+		return result;
+	}
+	
+	
 	
 	@RequestMapping(value = "/member/memberJoin", method = RequestMethod.POST)
 	public String memberJoin(MemberInfo memberInfo, Model model, HttpServletRequest request) throws Exception {

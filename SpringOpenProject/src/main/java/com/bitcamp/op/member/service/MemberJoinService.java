@@ -41,5 +41,11 @@ public class MemberJoinService {
 		return result;
 
 	}
+	
+	public int selectMemberById(String userid){
+		
+		return memberDao.selectIdCheck(userid);
+		
+	}
 
 }
