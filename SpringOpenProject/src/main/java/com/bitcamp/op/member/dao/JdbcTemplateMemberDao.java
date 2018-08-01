@@ -101,5 +101,14 @@ public class JdbcTemplateMemberDao {
 		else
 			return Collections.emptyList();
 	}
+	
+	public int deleteMember(String userId) {
+		
+		String sql = "delete from member where userid=?";
+		
+		return jdbcTemplate.update(sql, userId);
+		
+	}
+	
 
 }

@@ -16,17 +16,11 @@ public class MemberJoinService {
 
 	@Autowired
 	JdbcTemplateMemberDao memberDao;
-//	MemberDao memberDao;
-
-//	public void setMemberDao(MemberDao memberDao) {
-//		this.memberDao = memberDao;
-//	}
 
 	public int joinMember(MemberInfo memberInfo, HttpServletRequest request) throws Exception {
 
 		int result = 0;
-//		Connection conn = null;
-		// 저장용 파일이름 , 물리적저장, DB 저장용
+
 		String imgName = "";
 
 		// 1. 저장 경로 설정
@@ -34,23 +28,15 @@ public class MemberJoinService {
 		// 2. 시스템의 물리적인 경로
 		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
 
-		
-		if(!memberInfo.getPhone().isEmpty()) {
-			imgName = System.currentTimeMillis()+memberInfo.getPhotoFile().getOriginalFilename();
-		
+		if (!memberInfo.getPhone().isEmpty()) {
+			imgName = System.currentTimeMillis() + memberInfo.getPhotoFile().getOriginalFilename();
+
 			memberInfo.getPhotoFile().transferTo(new File(dir, imgName));
-			
+
 			memberInfo.setPhoto(imgName);
 		}
-		
 
-		//try {
-
-//			conn = ConnectionProvider.getConnection();
-			result = memberDao.insertMember(memberInfo);
-//		} finally {
-//			JdbcUtil.close(conn);
-//		}
+		result = memberDao.insertMember(memberInfo);
 
 		return result;
 

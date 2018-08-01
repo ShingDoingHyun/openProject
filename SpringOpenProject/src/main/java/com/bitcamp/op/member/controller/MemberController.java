@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bitcamp.op.member.model.MemberInfo;
+import com.bitcamp.op.member.service.MemberDeleteService;
 import com.bitcamp.op.member.service.MemberJoinService;
 import com.bitcamp.op.member.service.MemberListService;
 import com.bitcamp.op.member.service.MemberLoginService;
@@ -29,6 +30,9 @@ public class MemberController {
 	
 	@Autowired
 	MemberListService memberListService;
+	
+	@Autowired
+	MemberDeleteService memberDeleteServiece;
 
 	@RequestMapping("/member/memberLoginForm")
 	public String memberLoginForm(@RequestParam(value="userId", defaultValue="") String userId, Model model) {
@@ -95,7 +99,13 @@ public class MemberController {
 		model.addAttribute("memberInfos", memberListService.getMessageList(pageNum));
 		return "member/member_list";
 	}
-	
+
+	@RequestMapping("/member/memberDelete")
+	public String memberDelete(Model model, @RequestParam(value="userid") String userid){
+		
+		model.addAttribute("result", memberDeleteServiece.deleteMember(userid));
+		return "redirect:/member/memberList";
+	}
 	
 
 }

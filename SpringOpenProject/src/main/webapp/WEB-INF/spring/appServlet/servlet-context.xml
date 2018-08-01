@@ -89,6 +89,10 @@
 		class="com.bitcamp.op.member.service.MemberListService">
 		<!-- <beans:property name="memberDao" ref="memberDao" /> -->
 	</beans:bean>
+	<!-- 회원삭제 -->
+	<beans:bean id="memberDeleteService"
+		class="com.bitcamp.op.member.service.MemberDeleteService">
+	</beans:bean>
 
 	<!-- empDao 빈 등록 -->
 	<beans:bean id="empDao"
