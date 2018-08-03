@@ -75,7 +75,7 @@ public class DBCPInit extends HttpServlet {
 			//////////////////////////////////////////////////////////////////////
 
 			// Ŀ�ؼ� Ǯ�� ����. �����ڴ� PoolabeConnectionFactory�� GenericObjectPoolConfig�� ���
-			GenericObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<>(poolableConnFactory,
+			GenericObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolableConnFactory,
 					poolConfig);
 			// PoolabeConnectionFactory���� Ŀ�ؼ� Ǯ�� ����
 			poolableConnFactory.setPool(connectionPool);

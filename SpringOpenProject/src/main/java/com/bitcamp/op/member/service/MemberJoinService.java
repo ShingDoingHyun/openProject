@@ -1,24 +1,34 @@
 package com.bitcamp.op.member.service;
 
 import java.io.File;
-import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bitcamp.op.jdbc.ConnectionProvider;
-import com.bitcamp.op.jdbc.JdbcUtil;
-import com.bitcamp.op.member.dao.JdbcTemplateMemberDao;
+import com.bitcamp.op.member.dao.MemberDaoInterface;
 import com.bitcamp.op.member.model.MemberInfo;
 
 public class MemberJoinService {
 
+	
+	
+	
+//	@Autowired
+//	JdbcTemplateMemberDao memberDao;
+//
+//	@Autowired
+//	MybatisMemberDao memberDao;
+	
 	@Autowired
-	JdbcTemplateMemberDao memberDao;
-
+	SqlSessionTemplate template;
+	
+	private MemberDaoInterface memberDao;
+	
+	
 	public int joinMember(MemberInfo memberInfo, HttpServletRequest request) throws Exception {
-
+		memberDao = template.getMapper(MemberDaoInterface.class);
 		int result = 0;
 
 		String imgName = "";
@@ -41,11 +51,11 @@ public class MemberJoinService {
 		return result;
 
 	}
-	
-	public int selectMemberById(String userid){
-		
-		return memberDao.selectIdCheck(userid);
-		
-	}
+//	
+//	public int selectMemberById(String userid){
+//		
+//		return memberDao.selectIdCheck(userid);
+//		
+//	}
 
 }

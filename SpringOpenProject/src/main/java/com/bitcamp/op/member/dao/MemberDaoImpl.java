@@ -59,7 +59,7 @@ public class MemberDaoImpl implements MemberDao {
 
 			pstmt = conn.prepareStatement("select userid, password, NAME, birthday, gender, email, phone, photo  from ( "
 					+ " select rownum rnum, userid, password, NAME, birthday, gender, email, phone, photo from ( "
-					+ " select * from member m order by m.userid desc " + " ) where rownum <= ? "
+					+ " select * from member m order by m.userid desc ) where rownum <= ? "
 					+ ") where rnum >= ?");
 
 			pstmt.setInt(1, endRow);

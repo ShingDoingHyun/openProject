@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitcamp.op.member.dao.MemberDaoInterface">
+	<insert id="insertMember"
+		parameterType="com.bitcamp.op.member.model.MemberInfo">
+		insert into member values
+		(#{userid},#{password},#{name},#{birthday},#{gender},#{email},#{phone},#{photo})
+	</insert>
+
+	<select id="selectById"
+		resultType="com.bitcamp.op.member.model.MemberInfo">
+		Select * from member where userid= #{id}
+	</select>
+
+	<select id="selectList" parameterType="int"
+		resultMap="userResultMap">
+
+		select userid, password, NAME, birthday, gender, email, phone,
+		photo
+		from ( select rownum rnum, userid, password, NAME, birthday, gender,
+		email, phone, photo from (
+		select * from member m
+		<where>
+			<if test="searchName != null">
+				NAME like #{searchName}
+			</if>
+		</where>
+		order by m.userid desc
+		) where<![CDATA[  rownum <=#{endRow} ]]>
+		) where <![CDATA[  rnum >=#{firstRow} ]]>
+	</select>
+
+	<select id="selectCount" resultType="int">
+		select count(*) from member
+	</select>
+
+
+	<resultMap id="userResultMap"
+		type="com.bitcamp.op.member.model.MemberInfo" />
+
+
+</mapper>

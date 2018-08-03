@@ -19,6 +19,7 @@ import com.bitcamp.op.member.service.MemberDeleteService;
 import com.bitcamp.op.member.service.MemberJoinService;
 import com.bitcamp.op.member.service.MemberListService;
 import com.bitcamp.op.member.service.MemberLoginService;
+import com.bitcamp.op.sendmail.service.SimpleMailSenderService;
 
 @Controller
 public class MemberController {
@@ -34,6 +35,10 @@ public class MemberController {
 	
 	@Autowired
 	MemberDeleteService memberDeleteServiece;
+	
+//	메일 전송 서비스
+	@Autowired
+	SimpleMailSenderService simpleMailSenderService;
 
 	@RequestMapping("/member/memberLoginForm")
 	public String memberLoginForm(@RequestParam(value="userId", defaultValue="") String userId, Model model) {
@@ -78,25 +83,30 @@ public class MemberController {
 	
 		return "member/member_join_form";
 	}
-	
-	@RequestMapping("/member/memberIdCheck")
-	@ResponseBody
-	public String memberIdCheck(@RequestParam(value="userid") String userid){
-		
-		System.out.println("오긴 왔는데"+userid);
-		String result = Integer.toString(memberJoinService.selectMemberById(userid));
-		System.out.println(result+"결과");
-		return result;
-	}
-	
-	
+//	
+//	@RequestMapping("/member/memberIdCheck")
+//	@ResponseBody
+//	public String memberIdCheck(@RequestParam(value="userid") String userid){
+//		
+//		String result = Integer.toString(memberJoinService.selectMemberById(userid));
+//		System.out.println(result+"결과");
+//		return result;
+//	}
+//	
+//	
 	
 	@RequestMapping(value = "/member/memberJoin", method = RequestMethod.POST)
 	public String memberJoin(MemberInfo memberInfo, Model model, HttpServletRequest request) throws Exception {
 		
 		int result = memberJoinService.joinMember(memberInfo, request);
-
-		return "redirect:/";
+		
+		if(result>0) {
+			
+			simpleMailSenderService.htmlMailSend(memberInfo.getUserid(), memberInfo.getEmail());
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}
 	}
 	
 	
@@ -107,9 +117,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/memberList")
-	public String memberMypage(Model model, @RequestParam(value="page", defaultValue="1") int pageNum) throws SQLException {
+	public String memberMypage(
+			Model model, 
+			@RequestParam(value="page", defaultValue="1") int pageNum, 
+			@RequestParam(value="searchName", required=false) String searchName) throws SQLException {
 		
-		model.addAttribute("memberInfos", memberListService.getMessageList(pageNum));
+		model.addAttribute("memberInfos", memberListService.getMessageList(pageNum, searchName));
 		return "member/member_list";
 	}
 
