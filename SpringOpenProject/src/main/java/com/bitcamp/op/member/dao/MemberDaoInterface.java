@@ -9,6 +9,7 @@ import com.bitcamp.op.member.model.MemberInfo;
 public interface MemberDaoInterface {
 
 	public MemberInfo selectById(String userid);
+	public int selectIdCheck(String userid);
 	public int insertMember(MemberInfo memberInfo);
 	public List<MemberInfo> selectList(@Param(value="endRow")  int endRow, @Param("firstRow") int firstRow,  @Param("searchName") String searchName);
 	public int selectCount();

@@ -32,6 +32,10 @@ public class MemberLoginService {
 	@Autowired
 	SqlSessionTemplate template;
 	
+//	암호화
+	@Autowired
+	Sha256 sha;
+	
 	private MemberDaoInterface memberDao;
 
 	public boolean loginMember(HttpServletRequest request, String userId, String userPw) throws SQLException {
@@ -45,7 +49,8 @@ public class MemberLoginService {
 
 			MemberInfo memberdto = memberDao.selectById( userId);   //conn,
 			
-			if (memberdto != null && memberdto.isMatchPassword(userPw)) {
+			if (memberdto != null && memberdto.isMatchPassword(sha.encrypt(userPw))) {
+				
 				session.setAttribute("loginInfo", memberdto);
 				result = true;
 			} 

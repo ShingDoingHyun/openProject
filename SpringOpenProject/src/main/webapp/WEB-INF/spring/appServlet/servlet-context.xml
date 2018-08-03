@@ -166,7 +166,10 @@
 
 	<beans:bean id="simpleMailSenderService"
 		class="com.bitcamp.op.sendmail.service.SimpleMailSenderService" />
-
+		
+	<beans:bean id="sha" class="com.bitcamp.op.member.service.Sha256"/>
+	
+	
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
 

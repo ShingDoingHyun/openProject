@@ -7,6 +7,11 @@
 		resultType="com.bitcamp.op.member.model.MemberInfo">
 		Select * from member where userid= #{id}
 	</select>
+	
+	<select id="selectIdCheck"
+		resultType="int" >
+		Select count(*) from member where userid like #{userid}
+	</select>
 
 	<insert id="insertMember"
 		parameterType="com.bitcamp.op.member.model.MemberInfo">

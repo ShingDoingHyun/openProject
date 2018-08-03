@@ -15,6 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		Select * from member where userid= #{id}
 	</select>
 
+	<select id="selectIdCheck" resultType="int">
+		Select count(*) from member where userid like #{userid}
+	</select>
+
 	<select id="selectList" parameterType="int"
 		resultMap="userResultMap">
 

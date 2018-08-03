@@ -1,6 +1,7 @@
 package com.bitcamp.op.member.service;
 
 import java.io.File;
+import java.security.MessageDigest;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +25,10 @@ public class MemberJoinService {
 	@Autowired
 	SqlSessionTemplate template;
 	
+//	암호화
+	@Autowired
+	Sha256 sha;
+	
 	private MemberDaoInterface memberDao;
 	
 	
@@ -45,17 +50,22 @@ public class MemberJoinService {
 
 			memberInfo.setPhoto(imgName);
 		}
+		
+		memberInfo.setPassword(sha.encrypt(memberInfo.getPassword()));
+		
+		
 
 		result = memberDao.insertMember(memberInfo);
 
 		return result;
 
 	}
-//	
-//	public int selectMemberById(String userid){
-//		
-//		return memberDao.selectIdCheck(userid);
-//		
-//	}
+	
+	
+	public int selectMemberById(String userid){
+		memberDao = template.getMapper(MemberDaoInterface.class);
+		return memberDao.selectIdCheck(userid);
+		
+	}
 
 }
